@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="box_head">THE R BOT</div>
+        <div class="chat-box" id="chat-box">
+            <!-- Chatbot conversation will be here -->
+            {% for messages in chat_history%}
+                <div class="chat-message user-message">{{ messages.user_text }}</div>
+                <div class="chat-message bot-message">{{messages.bot_response }}</div>
+            {% endfor %}
+        </div>
+        <form id="chat-form"  class="chat-input-area"  method="post">
+            {% csrf_token %}
+            <input type="text" name="message" id="user-input" placeholder="Type a message..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>
