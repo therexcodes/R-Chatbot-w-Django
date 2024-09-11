@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Chat
 from datetime import datetime
 import re
@@ -8,7 +8,8 @@ import re
 
 # Create your views here.
 def chat_view(request):
-
+    chat_history = Chat.objects.all().order_by('time_stamp')
+    
     if request.method == 'POST':
         user_message = request.POST.get('message')
         
@@ -22,10 +23,10 @@ def chat_view(request):
             response = "I am ChatBot, here to help with your questions."
         elif user_message in ["bye", "goodbye", "see you later"]:
             response = "Goodbye! Have a wonderful day!"
-        elif user_message in ["what time is it", "current time", "tell me the time"]:
+        elif user_message in ["what time is it", "current time", "tell me the time", "what is th time", "time"]:
             now = datetime.now()
             response = f"The current time is {now.strftime('%H:%M:%S')}."
-        elif user_message in ["date", "today's date", "what is the date"]:
+        elif user_message in ["date", "today's date", "what is the date", "what date is it"]:
             today = datetime.now()
             response = f"Today's date is {today.strftime('%Y-%m-%d')}."
         elif user_message in ["weather", "what's the weather like", "current weather"]:
@@ -53,9 +54,8 @@ def chat_view(request):
             response = "I'm not sure how to respond to that. Could you please rephrase your question?"
 
         Chat.objects.create(bot_response = response, user_text = user_message)
-        chat_history = Chat.objects.all().order_by('time_stamp')
+
+        return redirect('chat_view')
     
-    
-    return render(request, 'chat.html', {
-    "chat_history": chat_history
-    })
+    else:
+        return render(request, 'chat.html', {"chat_history": chat_history})
