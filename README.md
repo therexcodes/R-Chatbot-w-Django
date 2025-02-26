@@ -1,6 +1,6 @@
 # Chatbot Application
 
-Welcome to **R Chatbot**, a Django-based chatbot application that integrates OpenAI's API to provide intelligent, dynamic, and context-aware conversations. This project utilizes OpenAI's state-of-the-art models like `gpt-3.5-turbo` (or available models) to deliver high-quality responses.
+Welcome to **R Chatbot**, a Django-based chatbot application that integrates OpenAI's API to provide intelligent, dynamic, and context-aware conversations. This project utilizes OpenAI's state-of-the-art model `gpt-3.5-turbo`  to deliver high-quality responses.
 
 ## Features
 
